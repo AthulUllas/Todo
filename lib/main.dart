@@ -137,18 +137,46 @@ class Homepage extends HookConsumerWidget {
                   ),
                 if (selectedTime != null)
                   Padding(
-                    padding: const EdgeInsets.only(top: 18.0, right: 22),
+                    padding: const EdgeInsets.only(top: 18.0),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Icon(
-                          Icons.notification_important_rounded,
-                          size: 20,
+                        Padding(
+                          padding:
+                              const EdgeInsets.only(left: 22.0, bottom: 15),
+                          child: InkWell(
+                            onTap: () {},
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  color: Colors.red[400],
+                                  borderRadius: BorderRadius.circular(10)),
+                              width: 75,
+                              height: 25,
+                              child: const Center(
+                                child: Text(
+                                  "Save",
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ),
+                            ),
+                          ),
                         ),
-                        const SizedBox(
-                          width: 4,
+                        Padding(
+                          padding:
+                              const EdgeInsets.only(right: 22.0, bottom: 18),
+                          child: Row(
+                            children: [
+                              const Icon(
+                                Icons.notification_important_rounded,
+                                size: 20,
+                              ),
+                              const SizedBox(
+                                width: 4,
+                              ),
+                              Text(selectedTime.format(context)),
+                            ],
+                          ),
                         ),
-                        Text(selectedTime.format(context)),
                       ],
                     ),
                   )
