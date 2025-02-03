@@ -7,9 +7,9 @@ part 'todo_controller.freezed.dart';
 @freezed
 class TodoNotifier with _$TodoNotifier {
   factory TodoNotifier(
-      {required List todos,
-      required String title,
-      required String description}) = _TodoNotifier;
+      {required String title,
+      required String description,
+      required bool isCompleted}) = _TodoNotifier;
 }
 
 @riverpod
@@ -19,10 +19,11 @@ class Todo extends _$Todo {
     return [];
   }
 
-  void addTodo(
-    TodoNotifier todo,
-  ) {
-    // Add todo to the list
+  void addTodo(TodoNotifier todo) {
     state = [...state, todo];
+  }
+
+  void removeTodo(String todoTitle) {
+    state = state.where((todo) => todoTitle != todoTitle).toList();
   }
 }

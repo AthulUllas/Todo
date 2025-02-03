@@ -16,9 +16,9 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$TodoNotifier {
-  List<dynamic> get todos => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
+  bool get isCompleted => throw _privateConstructorUsedError;
 
   /// Create a copy of TodoNotifier
   /// with the given fields replaced by the non-null parameter values.
@@ -33,7 +33,7 @@ abstract class $TodoNotifierCopyWith<$Res> {
           TodoNotifier value, $Res Function(TodoNotifier) then) =
       _$TodoNotifierCopyWithImpl<$Res, TodoNotifier>;
   @useResult
-  $Res call({List<dynamic> todos, String title, String description});
+  $Res call({String title, String description, bool isCompleted});
 }
 
 /// @nodoc
@@ -51,15 +51,11 @@ class _$TodoNotifierCopyWithImpl<$Res, $Val extends TodoNotifier>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? todos = null,
     Object? title = null,
     Object? description = null,
+    Object? isCompleted = null,
   }) {
     return _then(_value.copyWith(
-      todos: null == todos
-          ? _value.todos
-          : todos // ignore: cast_nullable_to_non_nullable
-              as List<dynamic>,
       title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -68,6 +64,10 @@ class _$TodoNotifierCopyWithImpl<$Res, $Val extends TodoNotifier>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
+      isCompleted: null == isCompleted
+          ? _value.isCompleted
+          : isCompleted // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -80,7 +80,7 @@ abstract class _$$TodoNotifierImplCopyWith<$Res>
       __$$TodoNotifierImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<dynamic> todos, String title, String description});
+  $Res call({String title, String description, bool isCompleted});
 }
 
 /// @nodoc
@@ -96,15 +96,11 @@ class __$$TodoNotifierImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? todos = null,
     Object? title = null,
     Object? description = null,
+    Object? isCompleted = null,
   }) {
     return _then(_$TodoNotifierImpl(
-      todos: null == todos
-          ? _value._todos
-          : todos // ignore: cast_nullable_to_non_nullable
-              as List<dynamic>,
       title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -113,6 +109,10 @@ class __$$TodoNotifierImplCopyWithImpl<$Res>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
+      isCompleted: null == isCompleted
+          ? _value.isCompleted
+          : isCompleted // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -121,27 +121,20 @@ class __$$TodoNotifierImplCopyWithImpl<$Res>
 
 class _$TodoNotifierImpl implements _TodoNotifier {
   _$TodoNotifierImpl(
-      {required final List<dynamic> todos,
-      required this.title,
-      required this.description})
-      : _todos = todos;
-
-  final List<dynamic> _todos;
-  @override
-  List<dynamic> get todos {
-    if (_todos is EqualUnmodifiableListView) return _todos;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_todos);
-  }
+      {required this.title,
+      required this.description,
+      required this.isCompleted});
 
   @override
   final String title;
   @override
   final String description;
+  @override
+  final bool isCompleted;
 
   @override
   String toString() {
-    return 'TodoNotifier(todos: $todos, title: $title, description: $description)';
+    return 'TodoNotifier(title: $title, description: $description, isCompleted: $isCompleted)';
   }
 
   @override
@@ -149,15 +142,15 @@ class _$TodoNotifierImpl implements _TodoNotifier {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$TodoNotifierImpl &&
-            const DeepCollectionEquality().equals(other._todos, _todos) &&
             (identical(other.title, title) || other.title == title) &&
             (identical(other.description, description) ||
-                other.description == description));
+                other.description == description) &&
+            (identical(other.isCompleted, isCompleted) ||
+                other.isCompleted == isCompleted));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType,
-      const DeepCollectionEquality().hash(_todos), title, description);
+  int get hashCode => Object.hash(runtimeType, title, description, isCompleted);
 
   /// Create a copy of TodoNotifier
   /// with the given fields replaced by the non-null parameter values.
@@ -170,16 +163,16 @@ class _$TodoNotifierImpl implements _TodoNotifier {
 
 abstract class _TodoNotifier implements TodoNotifier {
   factory _TodoNotifier(
-      {required final List<dynamic> todos,
-      required final String title,
-      required final String description}) = _$TodoNotifierImpl;
+      {required final String title,
+      required final String description,
+      required final bool isCompleted}) = _$TodoNotifierImpl;
 
-  @override
-  List<dynamic> get todos;
   @override
   String get title;
   @override
   String get description;
+  @override
+  bool get isCompleted;
 
   /// Create a copy of TodoNotifier
   /// with the given fields replaced by the non-null parameter values.
