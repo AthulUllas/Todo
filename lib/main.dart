@@ -25,6 +25,14 @@ class Homepage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    Future<void> pickTime() async {
+      final TimeOfDay? todoTime =
+          await showTimePicker(context: context, initialTime: TimeOfDay.now());
+      if (todoTime != null) {
+        ref.read(selectedTimeProvider.notifier).state = todoTime;
+      }
+    }
+
     final selectedTime = ref.watch(selectedTimeProvider);
     final isClicked = useState(false);
     final textFieldController = useTextEditingController();
@@ -42,7 +50,7 @@ class Homepage extends HookConsumerWidget {
         children: [
           AnimatedContainer(
             duration: const Duration(milliseconds: 100),
-            height: isClicked.value ? 200 : 120,
+            height: isClicked.value ? 210 : 120,
             decoration: BoxDecoration(
                 color: Colors.amber[100],
                 borderRadius: BorderRadius.circular(10)),
@@ -122,16 +130,28 @@ class Homepage extends HookConsumerWidget {
                               const EdgeInsets.only(top: 12, left: 8),
                           suffixIcon: IconButton(
                               onPressed: () {
-                                final todoTime = showTimePicker(
-                                  context: context,
-                                  initialTime: TimeOfDay.now(),
-                                );
-                                // ref.read(selectedTimeProvider.notifier).state =
-                                //     todoTime;
+                                pickTime();
                               },
                               icon: const Icon(Icons.timer))),
                     ),
                   ),
+                if (selectedTime != null)
+                  Padding(
+                    padding: const EdgeInsets.only(top: 18.0, right: 22),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        const Icon(
+                          Icons.notification_important_rounded,
+                          size: 20,
+                        ),
+                        const SizedBox(
+                          width: 4,
+                        ),
+                        Text(selectedTime.format(context)),
+                      ],
+                    ),
+                  )
               ],
             ),
           )
