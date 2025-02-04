@@ -5,25 +5,20 @@ import 'package:todo/models/todo_model.dart';
 part 'todocontroller.g.dart';
 
 @riverpod
-class TodoNotifier extends _$TodoNotifier<List<TodoModel>> {
+class TodoNotifier extends _$TodoNotifier {
   @override
   List<TodoModel> build() {
     return [];
   }
-}
 
-void addTodo(
-    String title, String description, bool isCompleted, TimeOfDay time) {
-  state = [
-    ...state,
-    TodoModel(
-        title: title,
-        description: description,
-        isCompleted: isCompleted,
-        time: time)
-  ];
-}
+  void addTodo(String title, String description, TimeOfDay time) {
+    state = [
+      ...state,
+      TodoModel(description: description, title: title, time: time)
+    ];
+  }
 
-void removeTodo(int index) {
-  state = [...state]..removeAt(index);
+  void removeTodo(int index) {
+    state = [...state]..removeAt(index);
+  }
 }
