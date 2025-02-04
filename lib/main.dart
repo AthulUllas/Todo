@@ -6,8 +6,6 @@ void main() {
   runApp(const ProviderScope(child: MyApp()));
 }
 
-final selectedTimeProvider = StateProvider<TimeOfDay?>((ref) => null);
-
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
