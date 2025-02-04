@@ -15,9 +15,17 @@ class TodosList extends HookConsumerWidget {
           itemCount: todos.length,
           itemBuilder: (context, index) {
             final todoList = todos[index];
-            return ListTile(
-              title: Text(todoList.title),
-              subtitle: Text(todoList.description),
+            return Padding(
+              padding: const EdgeInsets.only(left: 16.0, right: 16, bottom: 16),
+              child: ListTile(
+                title: Text(todoList.title),
+                subtitle: Text(todoList.description),
+                leading: const Icon(Icons.abc),
+                trailing: const Icon(Icons.delete),
+                selectedColor: Colors.white,
+                iconColor: Colors.black,
+                tileColor: Colors.amber[100],
+              ),
             );
           }),
     );

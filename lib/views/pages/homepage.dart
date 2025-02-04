@@ -18,8 +18,7 @@ class Homepage extends HookConsumerWidget {
       }
     }
 
-    final selectedTime = ref.watch(selectedTimeProvider);
-    final todos = ref.watch(todoNotifierProvider);
+    var selectedTime = ref.watch(selectedTimeProvider);
     final todo = ref.read(todoNotifierProvider.notifier);
     final isClicked = useState(false);
     final titleController = useTextEditingController();
@@ -132,8 +131,18 @@ class Homepage extends HookConsumerWidget {
                                 const EdgeInsets.only(left: 22.0, bottom: 15),
                             child: InkWell(
                               onTap: () {
-                                todo.addTodo(titleController.text,
-                                    descriptionController.text, selectedTime);
+                                if (titleController.text.trim().isNotEmpty &&
+                                    descriptionController.text
+                                        .trim()
+                                        .isNotEmpty) {
+                                  todo.addTodo(titleController.text,
+                                      descriptionController.text, selectedTime);
+                                  titleController.clear();
+                                  descriptionController.clear();
+                                } else {
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(snackBar);
+                                }
                               },
                               child: Container(
                                 decoration: BoxDecoration(
@@ -172,6 +181,7 @@ class Homepage extends HookConsumerWidget {
                 ],
               ),
             ),
+            const SizedBox(height: 50),
             const TodosList()
           ],
         ),
