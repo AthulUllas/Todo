@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:todo/controller/todo_controller.dart';
 import 'package:todo/main.dart';
 
 class Homepage extends HookConsumerWidget {
@@ -26,7 +25,9 @@ class Homepage extends HookConsumerWidget {
         content: const Text("Your todo is empty"));
     final descriptionController = useTextEditingController();
     return Scaffold(
+      backgroundColor: const Color.fromARGB(255, 167, 199, 226),
       appBar: AppBar(
+        backgroundColor: const Color.fromARGB(255, 167, 199, 226),
         title: const Text(""),
         centerTitle: true,
       ),
@@ -69,11 +70,7 @@ class Homepage extends HookConsumerWidget {
                               if (textFieldController.text.trim().isEmpty) {
                                 ScaffoldMessenger.of(context)
                                     .showSnackBar(snackBar);
-                              }
-                              //  else if (isClicked.value == true) {
-                              //   isClicked.value == isClicked.value;
-                              // }
-                              else if (isClicked.value) {
+                              } else if (isClicked.value) {
                                 isClicked.value = isClicked.value;
                               } else {
                                 isClicked.value = !isClicked.value;
