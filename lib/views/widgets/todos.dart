@@ -10,21 +10,70 @@ class TodosList extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final todos = ref.watch(todoNotifierProvider);
+    final todo = ref.read(todoNotifierProvider.notifier);
     return Expanded(
       child: ListView.builder(
           itemCount: todos.length,
           itemBuilder: (context, index) {
             final todoList = todos[index];
-            return Padding(
-              padding: const EdgeInsets.only(left: 16.0, right: 16, bottom: 16),
-              child: ListTile(
-                title: Text(todoList.title),
-                subtitle: Text(todoList.description),
-                leading: const Icon(Icons.abc),
-                trailing: const Icon(Icons.delete),
-                selectedColor: Colors.white,
-                iconColor: Colors.black,
-                tileColor: Colors.amber[100],
+            final timeInString = todoList.time.format(context);
+            return SizedBox(
+              height: 80,
+              child: Card(
+                color: Colors.black,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10)),
+                margin: const EdgeInsets.only(left: 16, right: 16, bottom: 8),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    const Padding(
+                      padding: EdgeInsets.only(left: 4.0),
+                      child: Icon(
+                        Icons.square_outlined,
+                        color: Colors.amber,
+                        size: 18,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Text(
+                            todoList.title,
+                            style: const TextStyle(
+                                color: Colors.white, fontSize: 16),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 4.0),
+                            child: Text(
+                              todoList.description,
+                              style: const TextStyle(
+                                  color: Colors.white, fontSize: 12),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 30,
+                    ),
+                    Text(
+                      timeInString,
+                      style: const TextStyle(color: Colors.red),
+                    ),
+                    IconButton(
+                        onPressed: () {
+                          todo.removeTodo(index);
+                        },
+                        icon: const Icon(
+                          Icons.delete,
+                          color: Colors.amber,
+                        ))
+                  ],
+                ),
               ),
             );
           }),

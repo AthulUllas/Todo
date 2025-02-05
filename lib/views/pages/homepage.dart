@@ -21,9 +21,9 @@ class Homepage extends HookConsumerWidget {
         content: const Text("Your todo is empty"));
     final descriptionController = useTextEditingController();
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 167, 199, 226),
+      backgroundColor: Colors.transparent,
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 167, 199, 226),
+        backgroundColor: Colors.transparent,
         title: const Text(""),
         centerTitle: true,
       ),
@@ -34,7 +34,7 @@ class Homepage extends HookConsumerWidget {
               duration: const Duration(milliseconds: 100),
               height: isClicked.value ? 210 : 120,
               decoration: BoxDecoration(
-                  color: Colors.amber[400],
+                  color: const Color.fromARGB(255, 255, 191, 0),
                   borderRadius: BorderRadius.circular(10)),
               margin: const EdgeInsets.symmetric(horizontal: 16),
               child: Column(
