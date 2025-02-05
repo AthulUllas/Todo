@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:todo/views/pages/completed_todos_page.dart';
+import 'package:todo/views/pages/homepage.dart';
 
 class BottomBar extends StatelessWidget {
   const BottomBar({super.key});
@@ -14,14 +16,27 @@ class BottomBar extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => const Homepage()),
+                  (route) => false,
+                );
+              },
               icon: const Icon(
                 Icons.today_rounded,
                 size: 30,
                 color: Colors.black,
               )),
           IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const CompletedTodosPage()),
+                  (route) => false,
+                );
+              },
               icon: const Icon(
                 Icons.done_outline_rounded,
                 size: 30,
