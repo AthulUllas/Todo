@@ -25,7 +25,7 @@ class TodosList extends HookConsumerWidget {
                     borderRadius: BorderRadius.circular(10)),
                 margin: const EdgeInsets.only(left: 16, right: 16, bottom: 8),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     const Padding(
                       padding: EdgeInsets.only(left: 4.0),
@@ -36,7 +36,7 @@ class TodosList extends HookConsumerWidget {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                      padding: const EdgeInsets.symmetric(horizontal: 2.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,

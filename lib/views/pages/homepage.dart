@@ -25,7 +25,7 @@ class Homepage extends HookConsumerWidget {
       backgroundColor: const Color.fromARGB(255, 0, 20, 37),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
-        title: const Text(""),
+        title: const Text("Todo-App"),
         centerTitle: true,
       ),
       body: SizedBox(
