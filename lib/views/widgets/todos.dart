@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:todo/controller/completedcontroller.dart';
 import 'package:todo/controller/todocontroller.dart';
 
 class TodosList extends HookConsumerWidget {
@@ -11,12 +12,20 @@ class TodosList extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final todos = ref.watch(todoNotifierProvider);
     final todo = ref.read(todoNotifierProvider.notifier);
+    final completedTodo = ref.read(completedtodoNotifierProvider.notifier);
     return Expanded(
       child: ListView.builder(
           itemCount: todos.length,
           itemBuilder: (context, index) {
             final todoList = todos[index];
             final timeInString = todoList.time.format(context);
+            void switchToCompleted() {
+              todoList.isCompleted = !todoList.isCompleted;
+              completedTodo.addToCompleted(
+                  todoList.title, todoList.description);
+              todo.removeTodo(index);
+            }
+
             return SizedBox(
               height: 80,
               child: Card(
@@ -27,14 +36,15 @@ class TodosList extends HookConsumerWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    const Padding(
-                      padding: EdgeInsets.only(left: 4.0),
-                      child: Icon(
-                        Icons.square_outlined,
-                        color: Colors.amber,
-                        size: 18,
-                      ),
-                    ),
+                    Padding(
+                        padding: const EdgeInsets.only(left: 4.0),
+                        child: Checkbox(
+                            side:
+                                const BorderSide(color: Colors.amber, width: 2),
+                            value: todoList.isCompleted,
+                            onChanged: (bool? value) {
+                              switchToCompleted();
+                            })),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 2.0),
                       child: Column(

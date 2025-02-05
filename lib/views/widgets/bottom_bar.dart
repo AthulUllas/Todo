@@ -3,7 +3,9 @@ import 'package:todo/views/pages/completed_todos_page.dart';
 import 'package:todo/views/pages/homepage.dart';
 
 class BottomBar extends StatelessWidget {
-  const BottomBar({super.key});
+  const BottomBar({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

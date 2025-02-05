@@ -25,7 +25,10 @@ class Homepage extends HookConsumerWidget {
       backgroundColor: const Color.fromARGB(255, 0, 20, 37),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
-        title: const Text("Todo-App"),
+        title: const Text(
+          "Todo",
+          style: TextStyle(color: Colors.white),
+        ),
         centerTitle: true,
       ),
       body: SizedBox(
@@ -132,8 +135,11 @@ class Homepage extends HookConsumerWidget {
                                     descriptionController.text
                                         .trim()
                                         .isNotEmpty) {
-                                  todo.addTodo(titleController.text,
-                                      descriptionController.text, timeProvider);
+                                  todo.addTodo(
+                                      titleController.text,
+                                      descriptionController.text,
+                                      timeProvider,
+                                      false);
                                   titleController.clear();
                                   descriptionController.clear();
                                   time.resetTime(TimeOfDay.now());
