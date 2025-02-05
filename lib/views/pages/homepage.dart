@@ -3,6 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:todo/controller/timecontroller.dart';
 import 'package:todo/controller/todocontroller.dart';
+import 'package:todo/views/widgets/bottom_bar.dart';
 import 'package:todo/views/widgets/todos.dart';
 
 class Homepage extends HookConsumerWidget {
@@ -178,10 +179,15 @@ class Homepage extends HookConsumerWidget {
                 ],
               ),
             ),
-            const SizedBox(height: 50),
-            const TodosList()
+            const SizedBox(height: 20),
+            const TodosList(),
           ],
         ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: const Padding(
+        padding: EdgeInsets.only(bottom: 20.0),
+        child: BottomBar(),
       ),
     );
   }
