@@ -13,7 +13,7 @@ class Homepage extends HookConsumerWidget {
     final timeProvider = ref.watch(timeNotifierProvider);
     final time = ref.read(timeNotifierProvider.notifier);
     final todo = ref.read(todoNotifierProvider.notifier);
-    final isClicked = useState(true);
+    final isClicked = useState(false);
     final titleController = useTextEditingController();
     final snackBar = SnackBar(
         duration: const Duration(milliseconds: 900),
@@ -116,64 +116,65 @@ class Homepage extends HookConsumerWidget {
                                 icon: const Icon(Icons.timer))),
                       ),
                     ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 18.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Padding(
-                          padding:
-                              const EdgeInsets.only(left: 22.0, bottom: 15),
-                          child: InkWell(
-                            onTap: () {
-                              if (titleController.text.trim().isNotEmpty &&
-                                  descriptionController.text
-                                      .trim()
-                                      .isNotEmpty) {
-                                todo.addTodo(titleController.text,
-                                    descriptionController.text, timeProvider);
-                                titleController.clear();
-                                descriptionController.clear();
-                                time.resetTime(TimeOfDay.now());
-                              } else {
-                                ScaffoldMessenger.of(context)
-                                    .showSnackBar(snackBar);
-                              }
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  color: Colors.red[400],
-                                  borderRadius: BorderRadius.circular(10)),
-                              width: 75,
-                              height: 25,
-                              child: const Center(
-                                child: Text(
-                                  "Save",
-                                  style: TextStyle(color: Colors.white),
+                  if (isClicked.value)
+                    Padding(
+                      padding: const EdgeInsets.only(top: 18.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Padding(
+                            padding:
+                                const EdgeInsets.only(left: 22.0, bottom: 15),
+                            child: InkWell(
+                              onTap: () {
+                                if (titleController.text.trim().isNotEmpty &&
+                                    descriptionController.text
+                                        .trim()
+                                        .isNotEmpty) {
+                                  todo.addTodo(titleController.text,
+                                      descriptionController.text, timeProvider);
+                                  titleController.clear();
+                                  descriptionController.clear();
+                                  time.resetTime(TimeOfDay.now());
+                                } else {
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(snackBar);
+                                }
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    color: Colors.red[400],
+                                    borderRadius: BorderRadius.circular(10)),
+                                width: 75,
+                                height: 25,
+                                child: const Center(
+                                  child: Text(
+                                    "Save",
+                                    style: TextStyle(color: Colors.white),
+                                  ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                        Padding(
-                          padding:
-                              const EdgeInsets.only(right: 22.0, bottom: 18),
-                          child: Row(
-                            children: [
-                              const Icon(
-                                Icons.notification_important_rounded,
-                                size: 20,
-                              ),
-                              const SizedBox(
-                                width: 4,
-                              ),
-                              Text(timeProvider.format(context)),
-                            ],
+                          Padding(
+                            padding:
+                                const EdgeInsets.only(right: 22.0, bottom: 18),
+                            child: Row(
+                              children: [
+                                const Icon(
+                                  Icons.notification_important_rounded,
+                                  size: 20,
+                                ),
+                                const SizedBox(
+                                  width: 4,
+                                ),
+                                Text(timeProvider.format(context)),
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                  )
+                        ],
+                      ),
+                    )
                 ],
               ),
             ),
