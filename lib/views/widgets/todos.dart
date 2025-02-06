@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:todo/controller/todocontroller.dart';
 
@@ -11,6 +12,20 @@ class TodosList extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final todos = ref.watch(todoNotifierProvider);
     final todo = ref.read(todoNotifierProvider.notifier);
+    final isChecked = useState(false);
+    final checkedController =
+        useAnimationController(duration: const Duration(milliseconds: 300));
+    final iconSize = Tween<double>(begin: 0, end: 18).animate(
+        CurvedAnimation(parent: checkedController, curve: Curves.easeInOut));
+    void toggleCheckBox() {
+      if (isChecked.value) {
+        checkedController.reverse();
+      } else {
+        checkedController.forward();
+      }
+      isChecked.value = !isChecked.value;
+    }
+
     return Expanded(
       child: ListView.builder(
           itemCount: todos.length,
@@ -29,11 +44,29 @@ class TodosList extends HookConsumerWidget {
                   children: [
                     Padding(
                         padding: const EdgeInsets.only(left: 4.0),
-                        child: Checkbox(
-                            side:
-                                const BorderSide(color: Colors.amber, width: 2),
-                            value: todoList.isCompleted,
-                            onChanged: (bool? value) {})),
+                        child: GestureDetector(
+                          onTap: toggleCheckBox,
+                          child: AnimatedBuilder(
+                              animation: checkedController,
+                              builder: (context, child) {
+                                return Container(
+                                  width: 18,
+                                  height: 18,
+                                  decoration: BoxDecoration(
+                                      color: isChecked.value
+                                          ? Colors.amber
+                                          : Colors.transparent,
+                                      border: Border.all(
+                                          color: Colors.amber, width: 2),
+                                      borderRadius: BorderRadius.circular(4)),
+                                  child: Icon(
+                                    Icons.check,
+                                    color: Colors.white,
+                                    size: iconSize.value,
+                                  ),
+                                );
+                              }),
+                        )),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 2.0),
                       child: Column(
