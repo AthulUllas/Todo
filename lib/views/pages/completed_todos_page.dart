@@ -9,8 +9,7 @@ class CompletedTodosPage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final completedTodos = ref.watch(completedtodoNotifierProvider);
-
-    print("✅ UI Rebuilding. Completed todos count: ${completedTodos.length}");
+    final completedTodo = ref.read(completedtodoNotifierProvider.notifier);
 
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 0, 20, 37),
@@ -25,14 +24,36 @@ class CompletedTodosPage extends HookConsumerWidget {
               itemCount: completedTodos.length,
               itemBuilder: (context, index) {
                 final todo = completedTodos[index];
-                return ListTile(
-                  title: Text(
-                    todo.title,
-                    style: const TextStyle(color: Colors.white),
-                  ),
-                  subtitle: Text(
-                    todo.description,
-                    style: const TextStyle(color: Colors.grey),
+                return Padding(
+                  padding:
+                      const EdgeInsets.only(left: 16.0, right: 16, top: 16),
+                  child: ListTile(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10)),
+                    tileColor: Colors.black,
+                    title: Padding(
+                      padding: const EdgeInsets.only(left: 12.0),
+                      child: Text(
+                        todo.title,
+                        style: const TextStyle(color: Colors.white),
+                      ),
+                    ),
+                    subtitle: Padding(
+                      padding: const EdgeInsets.only(left: 12.0, top: 6),
+                      child: Text(
+                        todo.description,
+                        style: const TextStyle(color: Colors.grey),
+                      ),
+                    ),
+                    trailing: IconButton(
+                        onPressed: () {
+                          completedTodo.deleteTodo(index);
+                        },
+                        icon: const Icon(
+                          Icons.delete,
+                          color: Colors.amber,
+                        )),
+                    visualDensity: const VisualDensity(vertical: 1),
                   ),
                 );
               },

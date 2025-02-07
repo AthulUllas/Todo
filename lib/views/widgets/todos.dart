@@ -12,7 +12,6 @@ class TodosList extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final todos = ref.watch(todoNotifierProvider);
     final todo = ref.read(todoNotifierProvider.notifier);
-    final completedTodo = ref.read(completedtodoNotifierProvider.notifier);
     return Expanded(
       child: ListView.builder(
           itemCount: todos.length,
@@ -25,13 +24,10 @@ class TodosList extends HookConsumerWidget {
                   ref.read(completedtodoNotifierProvider.notifier);
               final todos = ref.read(todoNotifierProvider);
 
-              if (index < 0 || index >= todos.length)
-                return; // Prevent index out of range errors
+              // if (index < 0 || index >= todos.length)
+              //   return;
 
               final todoItem = todos[index];
-
-              print(
-                  "✅ Moving to completed: ${todoItem.title}"); // Debugging log
 
               // Add to completed list
               completedTodoNotifier.addToCompleted(
@@ -39,9 +35,6 @@ class TodosList extends HookConsumerWidget {
 
               // Remove from active todo list
               todoNotifier.removeTodo(index);
-
-              print(
-                  "✅ Completed todos count after update: ${ref.read(completedtodoNotifierProvider).length}");
             }
 
             return SizedBox(
@@ -65,27 +58,24 @@ class TodosList extends HookConsumerWidget {
                         },
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 2.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Text(
-                            todoList.title,
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Text(
+                          todoList.title,
+                          style: const TextStyle(
+                              color: Colors.white, fontSize: 16),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 4.0),
+                          child: Text(
+                            todoList.description,
                             style: const TextStyle(
-                                color: Colors.white, fontSize: 16),
+                                color: Colors.white, fontSize: 12),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 4.0),
-                            child: Text(
-                              todoList.description,
-                              style: const TextStyle(
-                                  color: Colors.white, fontSize: 12),
-                            ),
-                          )
-                        ],
-                      ),
+                        )
+                      ],
                     ),
                     const SizedBox(
                       width: 30,

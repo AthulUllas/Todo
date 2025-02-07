@@ -11,13 +11,9 @@ class CompletedtodoNotifier extends _$CompletedtodoNotifier {
   }
 
   void addToCompleted(String title, String description, bool isCompleted) {
-    print("✅ Adding to completed: $title"); // Debugging log
-
     final newTodo = CompletedTodoModel(title: title, description: description);
 
     state = [...state, newTodo];
-
-    print("✅ New completed list length: ${state.length}");
   }
 
   void deleteTodo(int index) {
