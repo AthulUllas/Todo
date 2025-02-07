@@ -19,11 +19,29 @@ class TodosList extends HookConsumerWidget {
           itemBuilder: (context, index) {
             final todoList = todos[index];
             final timeInString = todoList.time.format(context);
-            void switchToCompleted() {
-              todoList.isCompleted = !todoList.isCompleted;
-              completedTodo.addToCompleted(
-                  todoList.title, todoList.description);
-              todo.removeTodo(index);
+            void switchToCompleted(int index, WidgetRef ref) {
+              final todoNotifier = ref.read(todoNotifierProvider.notifier);
+              final completedTodoNotifier =
+                  ref.read(completedtodoNotifierProvider.notifier);
+              final todos = ref.read(todoNotifierProvider);
+
+              if (index < 0 || index >= todos.length)
+                return; // Prevent index out of range errors
+
+              final todoItem = todos[index];
+
+              print(
+                  "✅ Moving to completed: ${todoItem.title}"); // Debugging log
+
+              // Add to completed list
+              completedTodoNotifier.addToCompleted(
+                  todoItem.title, todoItem.description, true);
+
+              // Remove from active todo list
+              todoNotifier.removeTodo(index);
+
+              print(
+                  "✅ Completed todos count after update: ${ref.read(completedtodoNotifierProvider).length}");
             }
 
             return SizedBox(
@@ -37,14 +55,16 @@ class TodosList extends HookConsumerWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Padding(
-                        padding: const EdgeInsets.only(left: 4.0),
-                        child: Checkbox(
-                            side:
-                                const BorderSide(color: Colors.amber, width: 2),
-                            value: todoList.isCompleted,
-                            onChanged: (bool? value) {
-                              switchToCompleted();
-                            })),
+                      padding: const EdgeInsets.only(left: 4.0),
+                      child: Checkbox(
+                        side: const BorderSide(color: Colors.amber, width: 2),
+                        value: todoList.isCompleted,
+                        onChanged: (bool? value) {
+                          switchToCompleted(
+                              index, ref); // Pass `ref` to modify providers
+                        },
+                      ),
+                    ),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 2.0),
                       child: Column(
