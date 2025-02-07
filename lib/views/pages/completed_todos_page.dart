@@ -13,6 +13,14 @@ class CompletedTodosPage extends HookConsumerWidget {
 
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 0, 20, 37),
+      appBar: AppBar(
+        backgroundColor: const Color.fromARGB(255, 0, 20, 37),
+        title: const Text(
+          "Completed Todos",
+          style: TextStyle(color: Colors.white),
+        ),
+        centerTitle: true,
+      ),
       body: completedTodos.isEmpty
           ? const Center(
               child: Text(
