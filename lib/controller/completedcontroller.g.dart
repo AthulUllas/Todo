@@ -7,7 +7,7 @@ part of 'completedcontroller.dart';
 // **************************************************************************
 
 String _$completedtodoNotifierHash() =>
-    r'eb2451f900347c2f6459d2cc444257010ee73be3';
+    r'445b3685bbbfbe7fe52571bfa7616423331a0aad';
 
 /// See also [CompletedtodoNotifier].
 @ProviderFor(CompletedtodoNotifier)
