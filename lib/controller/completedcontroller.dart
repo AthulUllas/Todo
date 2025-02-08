@@ -12,8 +12,7 @@ class CompletedtodoNotifier extends _$CompletedtodoNotifier {
 
   void addToCompleted(String title, String description, bool isCompleted) {
     final newTodo = CompletedTodoModel(title: title, description: description);
-
-    state = [...state, newTodo];
+    state = [newTodo, ...state];
   }
 
   void deleteTodo(int index) {

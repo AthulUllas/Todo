@@ -14,12 +14,12 @@ class TodoNotifier extends _$TodoNotifier {
   void addTodo(
       String title, String description, TimeOfDay time, bool isCompleted) {
     state = [
-      ...state,
       TodoModel(
           description: description,
           title: title,
           time: time,
-          isCompleted: isCompleted)
+          isCompleted: isCompleted),
+      ...state
     ];
   }
 
