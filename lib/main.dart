@@ -6,6 +6,7 @@ import 'package:todo/views/pages/homepage.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await GetStorage.init("todos");
+  await GetStorage.init("completed todos");
   runApp(const ProviderScope(child: MyApp()));
 }
 
